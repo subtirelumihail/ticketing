@@ -1,0 +1,52 @@
+:global {
+  
+  * {
+    outline: 0 !important;
+  }
+  
+  html,
+  body,
+  .root,
+  .app {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .root {
+    margin-bottom: 50px;
+  }
+  
+  .clear {
+    &:after,
+    &:before {
+      content: "";
+      clear: both;
+      display: block;
+    }
+  }
+  
+  .page-subheader {
+    margin: 25px 0;
+  }
+  
+  .page-title {
+    margin: 0
+  }
+  
+  .exit-button {
+    float: right;
+  }
+  
+  .text-left {
+    text-align: left;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+}

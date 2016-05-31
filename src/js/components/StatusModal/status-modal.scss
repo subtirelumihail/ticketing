@@ -1,0 +1,35 @@
+.status-modal-content {
+  :global .modal-dialog {
+    width: 400px;
+  }
+}
+
+.status-modal-body {
+  text-align: center;
+}
+
+.badge-icon {
+  margin: 25px 0;
+  font-size: 80px;
+  background-color: #eaeaea;
+  padding: 25px;
+  border-radius: 100%;
+}
+
+.badge-icon--rotate {
+  animation: spin 4s linear infinite;
+}
+
+.badge-icon--error {
+  color: #DE4E4E;
+}
+
+.badge-icon--success {
+  color: green;
+}
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}

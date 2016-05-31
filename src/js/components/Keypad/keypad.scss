@@ -1,0 +1,24 @@
+.keypad {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  margin: 0 auto;
+}
+
+.keypad-input-container {
+  margin: 10px 5px;
+  text-align: center;
+}
+
+.keypad-number {
+  text-align: center;
+  padding: 0;
+}
+
+.keypad-button {
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
+}

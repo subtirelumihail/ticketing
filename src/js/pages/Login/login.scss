@@ -1,0 +1,13 @@
+.login {
+  height: 100%;
+  background-image: url('./image/opendev-bg.png');
+  background-size: cover;
+  background-position: 30% 50%;
+  background-repeat: no-repeat;
+  color: #fff
+  
+  :global .clock {
+    float: right;
+    padding: 10px;
+  }
+}

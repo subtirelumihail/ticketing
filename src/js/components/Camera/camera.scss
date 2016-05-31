@@ -1,0 +1,25 @@
+.camera-modal {
+  :global .modal-dialog {
+    width: 500px;
+  }
+}
+
+.camera-image-container {
+  height: 350px;
+}
+
+.camera-button {
+  padding: 18px;
+}
+
+.camera-take-picture-button {
+  border-radius: 10px;
+  
+  :global .glyphicon-camera {
+    font-size: 40px;
+  }
+}
+
+.camera-actions {
+  margin-top: 10px;
+}

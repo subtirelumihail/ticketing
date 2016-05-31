@@ -1,0 +1,22 @@
+.emission-button {
+  margin: 20px 0;
+  padding: 20px;
+
+  :global .glyphicon {
+    margin-left: 10px;
+  }
+}
+
+.emission-profile-image-container {
+  text-align: center;
+}
+
+.emission-profile-image {
+  width: 240px;
+  height: 300px;
+}
+
+.emission-submit-button {
+  max-width: 320px;
+  padding: 11px;
+}
