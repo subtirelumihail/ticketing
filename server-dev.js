@@ -4,23 +4,18 @@ import WebpackDevServer from 'webpack-dev-server'
 import ProgressBarPlugin from 'progress-bar-webpack-plugin'
 
 // Load custom librarys
-import Logger, {log, buidValidLogger, buidInvalidLogger} from './logger'
+import Logger, {log, buildValidLogger, buildInvalidLogger} from './logger'
 import cli from './cli'
 
 // Load configs
 import webpackConfig from './webpack.config.babel'
 import config from './config'
 
-const {port, hostname} = config
+var {port, hostname, portWeb} = config
 
-// Init the cli
-cli.init()
 
 // Configure webpack server
 webpackConfig.output.publicPath = '/'
-
-webpackConfig.entry.unshift('webpack/hot/dev-server')
-webpackConfig.entry.unshift('webpack-dev-server/client?http://' + hostname + ':' + port)
 
 webpackConfig.plugins.unshift(new webpack.HotModuleReplacementPlugin())
 webpackConfig.plugins.unshift(new Logger())
@@ -28,11 +23,25 @@ webpackConfig.plugins.unshift(
   new ProgressBarPlugin({
     format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
     summary: false,
-    customSummary: buidValidLogger
+    customSummary: buildValidLogger
   })
 )
 
-webpackConfig.target = 'electron'
+// to target both electron and web bla bla
+var argv = require('minimist')(process.argv.slice(2))
+if (argv.target === 'web') {
+  webpackConfig.target = 'web'
+  port = portWeb
+  webpackConfig.plugins.unshift(new webpack.NormalModuleReplacementPlugin(/^child_process$/, 'node-noop'))
+} else {
+  webpackConfig.target = 'electron'
+}
+
+webpackConfig.entry.unshift('webpack/hot/dev-server')
+webpackConfig.entry.unshift('webpack-dev-server/client?http://' + hostname + ':' + port)
+
+// Init the cli
+cli.init(port)
 
 // Start webpack server
 new WebpackDevServer(webpack(webpackConfig), {
@@ -56,6 +65,6 @@ new WebpackDevServer(webpack(webpackConfig), {
 }).listen(port, hostname, (err) => {
   if (err) {
     log(chalk.red(err))
-    buidInvalidLogger()
+    buildInvalidLogger()
   }
 })

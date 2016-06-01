@@ -5,9 +5,7 @@ import {log}      from './logger';
 import config  from './config';
 const {port, hostname} =  config;
 
-export const url  = chalk.yellow.bold(`${hostname}:${port}`);
-
-export const resetTerminal = () => {
+export const resetTerminal = (url) => {
   process.stdout.write('\u001B[2J\u001B[0;0f');
   console.log(`Listening at: [ ${url} ]\n`);
 };
@@ -34,16 +32,19 @@ const commands = [
 ];
 
 export default {
-  
-  init() {
+
+  init(customPort) {
+    const appPort = customPort || port
+    const url  = chalk.yellow.bold(`${hostname}:${appPort}`);
+
     // Reset the terminal window
-    resetTerminal();
-    
+    resetTerminal(url);
+
     //Listen to stdin input and handle action
     rl.on('line', function(line){
         switch(line.trim()) {
           case 'port':
-            log(port);
+            log(appPort);
             break;
           case 'url':
             log(url);
@@ -58,6 +59,6 @@ export default {
             }
         }
     });
-  
+
   }
 };

@@ -25,6 +25,12 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL(config['production'].host)
 
+  let webContents = mainWindow.webContents
+
+  webContents.on('will-navigate', function(e) {
+    mainWindow.loadURL(config['production'].host)
+  })
+
   // Open the DevTools.
 
   // Emitted when the window is closed.

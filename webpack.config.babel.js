@@ -4,6 +4,7 @@ import autoprefixer from 'autoprefixer'
 
 // Plugins
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import OfflinePlugin from 'offline-plugin'
 
 const cssLoader = [
   'style-loader',
@@ -12,8 +13,10 @@ const cssLoader = [
   'sass-loader' + '?sourceMap&outputStyle=expanded&sourceMap=true&sourceMapContents=true'
 ].join('!')
 
-module.exports = {
-  cache: true,
+const NODE_ENV = JSON.stringify(process.env.NODE_ENV)
+
+var options = {
+  // cache: true,
   debug: true,
   target: 'async-node',
   devtool: 'eval-source-map',
@@ -45,11 +48,19 @@ module.exports = {
       inject: 'body'
     }),
     new webpack.DefinePlugin({
-      'global': {}, // bizarre webpack workaround
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        NODE_ENV: NODE_ENV
       }
     })
   ]
 
 }
+
+if (process.env.NODE_ENV === 'production') {
+  options.plugins.unshift(new OfflinePlugin({
+    updateStrategy: 'all'
+  }))
+}
+
+module.exports = options
+

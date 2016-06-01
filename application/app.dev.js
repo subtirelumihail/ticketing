@@ -21,12 +21,21 @@ function createWindow () {
     height: 768
   })
 
-  mainWindow.webContents.openDevTools()
 
   // and load the index.html of the app.
   mainWindow.loadURL(config['development'].host)
 
+  let webContents = mainWindow.webContents
+
+  mainWindow.on('will-navigate', function(e) {
+    console.log('xxx', e);
+    alert('xxx')
+    e.preventDefault()
+    //mainWindow.loadURL(config['production'].host)
+  })
+
   // Open the DevTools.
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
